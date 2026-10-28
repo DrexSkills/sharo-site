@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sharo 💜</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7c3aed;
+      --purple-light: #a855f7;
+      --purple-pale: #ede9fe;
+      --purple-mid: #ddd6fe;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #faf7ff;
+      color: #1e1b4b;
+      overflow-x: hidden;
+    }
+
+    /* ── BLOB BACKGROUNDS ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 500px; height: 500px; background: #c4b5fd; top: -100px; left: -150px; }
+    .blob-2 { width: 400px; height: 400px; background: #a78bfa; bottom: 10%; right: -120px; }
+    .blob-3 { width: 300px; height: 300px; background: #e9d5ff; top: 40%; left: 30%; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      gap: 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--purple);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero-name {
+      font-size: clamp(5rem, 18vw, 11rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 45%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 400;
+      color: #6d28d9;
+      max-width: 400px;
+      line-height: 1.7;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #a78bfa;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bob 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1.5px;
+      height: 36px;
+      background: linear-gradient(to bottom, #a78bfa, transparent);
+    }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      padding: 18px 0;
+      background: linear-gradient(135deg, #6d28d9, #a855f7);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 40px;
+      width: max-content;
+      animation: marquee 18s linear infinite;
+    }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .marquee-item {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0.9;
+    }
+    .marquee-dot { color: rgba(255,255,255,0.4); }
+
+    /* ── SECTION ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #1e1b4b;
+      margin-bottom: 48px;
+    }
+    .section-title span { color: var(--purple); }
+
+    /* ── BIG QUOTE ── */
+    .quote-block {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, #4c1d95, #7c3aed);
+      color: white;
+      padding: 80px 48px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .quote-block::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 24px;
+      font-size: 20rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .quote-text {
+      position: relative;
+      font-size: clamp(1.3rem, 3.5vw, 2rem);
+      font-weight: 600;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto 24px;
+    }
+    .quote-from {
+      font-size: 0.85rem;
+      font-weight: 400;
+      opacity: 0.7;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── TRAITS GRID ── */
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .trait-card {
+      background: white;
+      border: 1px solid var(--purple-mid);
+      border-radius: 20px;
+      padding: 28px 22px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .trait-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(124,58,237,0.15);
+    }
+    .trait-card .icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .trait-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      margin-bottom: 6px;
+    }
+    .trait-card p {
+      font-size: 0.82rem;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* ── BENTO GRID ── */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 16px;
+    }
+    @media (max-width: 640px) { .bento { grid-template-columns: 1fr; } }
+
+    .bento-cell {
+      background: white;
+      border: 1px solid var(--purple-mid);
+      border-radius: 24px;
+      padding: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bento-cell.wide { grid-column: span 2; }
+    .bento-cell.tall { grid-row: span 2; }
+    .bento-cell.accent {
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      border-color: transparent;
+      color: white;
+    }
+    .bento-cell .cell-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 10px;
+    }
+    .bento-cell.accent .cell-num { color: rgba(255,255,255,0.6); }
+    .bento-cell h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #1e1b4b;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+    .bento-cell.accent h3 { color: white; }
+    .bento-cell p {
+      font-size: 0.85rem;
+      color: #6b7280;
+      line-height: 1.65;
+    }
+    .bento-cell.accent p { color: rgba(255,255,255,0.82); }
+    .bento-cell .big-emoji {
+      font-size: 4rem;
+      position: absolute;
+      bottom: 16px;
+      right: 20px;
+      opacity: 0.2;
+    }
+    .bento-cell.accent .big-emoji { opacity: 0.3; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--purple-mid);
+    }
+    .site-footer .footer-name {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      color: var(--purple-mid);
+      letter-spacing: -0.02em;
+    }
+    .site-footer p {
+      font-size: 0.8rem;
+      color: #a78bfa;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">✦ made just for her</div>
+    <h1 class="hero-name">Sharo</h1>
+    <p class="hero-sub">One of those rare people who makes the world softer just by being in it.</p>
+    <div class="scroll-hint">Scroll</div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">Kind-hearted <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Radiant <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">One of a kind <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Unforgettable <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Free spirit <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Loved deeply <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Inspiring <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Kind-hearted <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Radiant <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">One of a kind <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Unforgettable <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Free spirit <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Loved deeply <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Inspiring <span class="marquee-dot">◆</span></span>
+    </div>
+  </div>
+
+  <!-- TRAITS -->
+  <section>
+    <p class="section-label">✦ Who she is</p>
+    <h2 class="section-title">Everything that makes<br><span>Sharo, Sharo.</span></h2>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="icon">🌸</div>
+        <h3>Gentle Soul</h3>
+        <p>She treats people with a softness that stays with you long after the conversation ends.</p>
+      </div>
+      <div class="trait-card">
+        <div class="icon">⚡</div>
+        <h3>Inner Strength</h3>
+        <p>She handles hard things quietly and gracefully — stronger than she ever lets on.</p>
+      </div>
+      <div class="trait-card">
+        <div class="icon">✨</div>
+        <h3>Natural Light</h3>
+        <p>Her energy shifts the room. People feel better around her without knowing exactly why.</p>
+      </div>
+      <div class="trait-card">
+        <div class="icon">🌿</div>
+        <h3>Grounded</h3>
+        <p>Even in chaos, she stays calm and steady — an anchor for everyone around her.</p>
+      </div>
+      <div class="trait-card">
+        <div class="icon">💜</div>
+        <h3>Deeply Loving</h3>
+        <p>She loves with her whole heart and shows up for the people she cares about every time.</p>
+      </div>
+      <div class="trait-card">
+        <div class="icon">🦋</div>
+        <h3>Ever Growing</h3>
+        <p>She's always becoming a better version of herself — and she doesn't even realize how far she's come.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIG QUOTE -->
+  <div class="quote-block">
+    <p class="quote-text">"Having Sharo in your life is one of those things you don't fully appreciate until you stop to think about it — and then you can't stop being grateful."</p>
+    <p class="quote-from">— written with love</p>
+  </div>
+
+  <!-- BENTO -->
+  <section>
+    <p class="section-label">✦ A few things about her</p>
+    <h2 class="section-title">The details that<br><span>make her special.</span></h2>
+    <div class="bento">
+      <div class="bento-cell wide">
+        <p class="cell-num">01</p>
+        <h3>She makes ordinary moments feel meaningful</h3>
+        <p>Whether it's a quiet afternoon or a late-night conversation, being around Sharo makes everything feel a little more worth remembering.</p>
+        <span class="big-emoji">🌙</span>
+      </div>
+      <div class="bento-cell accent">
+        <p class="cell-num">02</p>
+        <h3>Her kindness isn't performative — it's just her</h3>
+        <p>She doesn't do it for attention. She's just genuinely, effortlessly good.</p>
+        <span class="big-emoji">💜</span>
+      </div>
+      <div class="bento-cell">
+        <p class="cell-num">03</p>
+        <h3>She laughs in a way that makes you laugh too</h3>
+        <p>It's contagious. Always has been.</p>
+        <span class="big-emoji">😄</span>
+      </div>
+      <div class="bento-cell">
+        <p class="cell-num">04</p>
+        <h3>She's someone people feel lucky to know</h3>
+        <p>Ask anyone close to her. They'll all say the same thing.</p>
+        <span class="big-emoji">🌟</span>
+      </div>
+      <div class="bento-cell wide accent">
+        <p class="cell-num">05</p>
+        <h3>The best chapters of her life are still ahead</h3>
+        <p>Everything so far has just been the warm-up. She's only getting started — and it's going to be beautiful to watch.</p>
+        <span class="big-emoji">🚀</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-name">Sharo.</div>
+    <p>made with love 💜</p>
+  </footer>
+
+</body>
+</html>
